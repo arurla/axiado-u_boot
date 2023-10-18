@@ -480,6 +480,9 @@ void dcache_enable(void)
 		mmu_setup();
 	}
 
+#if CONFIG_AX3000_EVK
+	set_sctlr(get_sctlr() & CR_A);
+#endif
 	set_sctlr(get_sctlr() | CR_C);
 }
 

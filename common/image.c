@@ -1631,7 +1631,12 @@ int image_setup_linux(bootm_headers_t *images)
 	}
 
 	if (IMAGE_ENABLE_OF_LIBFDT && of_size) {
+
+#if CONFIG_AX3000_EVK
+		ret = 0;
+#else
 		ret = image_setup_libfdt(images, *of_flat_tree, of_size, lmb);
+#endif
 		if (ret)
 			return ret;
 	}
