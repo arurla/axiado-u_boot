@@ -113,6 +113,7 @@ static int zynq_serial_setbrg(struct udevice *dev, int baudrate)
 	int ret;
 	struct clk clk;
 
+#ifndef CONFIG_AX3000_EVK
 	ret = clk_get_by_index(dev, 0, &clk);
 	if (ret < 0) {
 		dev_err(dev, "failed to get clock\n");
@@ -131,8 +132,11 @@ static int zynq_serial_setbrg(struct udevice *dev, int baudrate)
 		dev_err(dev, "failed to enable clock\n");
 		return ret;
 	}
-
-	_uart_zynq_serial_setbrg(platdata->regs, clock, baudrate);
+#else
+	dev_read_u32(dev,"uart-clk", &clock);
+#endif 
+	_uart_zynq_serial_setbrg(platdata->regs, clock,
+					CONFIG_BAUDRATE);
 
 	return 0;
 }

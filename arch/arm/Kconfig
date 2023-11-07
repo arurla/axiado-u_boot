@@ -498,7 +498,7 @@ config ARM64_SUPPORT_AARCH32
 
 choice
 	prompt "Target select"
-	default TARGET_HIKEY
+	default AX3000_EVK
 
 config ARCH_AT91
 	bool "Atmel AT91"
@@ -1270,6 +1270,17 @@ config TARGET_HIKEY960
 	  Support for HiKey960 96boards platform. It features a HI3660
 	  SoC, with 4xA73 CPU, 4xA53 CPU, MALI-G71 GPU, and 3GB RAM.
 
+config AX3000_EVK
+	bool "Support Axiado AX3000 Chip"
+	select ARM64
+	select DM
+	select DM_SERIAL
+	select ZYNQ_SERIAL
+	select GPIO_EXTRA_HEADER
+	help
+	  Support for Axiado AX3000 version1.0. AX3000 is a quad-core
+	  64-bit ARMv8 Cortex-A53 processors.
+
 config TARGET_POPLAR
 	bool "Support Poplar 96boards Enterprise Edition Platform"
 	select ARM64
@@ -1877,6 +1888,7 @@ source "board/xilinx/Kconfig"
 source "board/xilinx/zynq/Kconfig"
 source "board/xilinx/zynqmp/Kconfig"
 source "board/phytium/durian/Kconfig"
+source "board/axiado/ax3000-evk/Kconfig"
 
 source "arch/arm/Kconfig.debug"
 
